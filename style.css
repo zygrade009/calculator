@@ -1,0 +1,54 @@
+body{
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.container{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 40%;
+    min-height: 84vh;
+}
+
+.inputbox,.outputbox,.clear,.delete,.button{
+    border: 2px solid black;
+    border-radius: 5px;
+}
+.button{
+    height: 50px;
+    width: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.controls{
+    display: flex;
+    flex-wrap: wrap;
+}
+.inputbox,.outputbox{
+    display: flex;
+    justify-content: flex-end;
+    align-items: end;
+    font-size: 30px;
+    height: 75px;
+}
+.clear,.delete{
+    width:50%;
+    text-align: right;
+    padding:5px ;
+}
+.display{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 170px;
+}
+.strow{
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
