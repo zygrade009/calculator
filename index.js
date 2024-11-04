@@ -1,67 +1,74 @@
-
-
-function add(num1,num2){
-    return num1+num2;
-}
-function subtract(num1,num2){
-    return num1-num2;
-}
-function multiply(num1,num2){
-    return num1*(1.0)*num2;
-}
-function divide(num1,num2){
-    return num1*(1.0)/num2;
+function add(num1, num2) {
+    return num1 + num2;
 }
 
+function subtract(num1, num2) {
+    return num1 - num2;
+}
 
-/// input button  ///
-function handleClick(character){
-    const inputbox=document.querySelector('.inputbox');
-    let store=inputbox.innerHTML;
-    if(inputbox){
-        store+=character;
+function multiply(num1, num2) {
+    return num1 * num2;
+}
+
+function divide(num1, num2) {
+    if (num2 === 0) {
+        return 'Error: Division by zero';
     }
-    inputbox.innerHTML=store;
-    return;
+    return num1 / num2;
 }
-let charArray=['+','-','*','/'];
-for(let i=0;i<14;i++){
-    if(i>=10){
-        const button=document.getElementById(charArray[i-10]);
-        button.addEventListener('click',()=>{handleClick(charArray[i-10]);});
-        continue;
+
+function handleClick(character) {
+    const inputbox = document.querySelector('.inputbox');
+    if (inputbox) {
+        inputbox.innerHTML += character;
     }
-    const button=document.getElementById(i);
-    button.addEventListener('click',()=>{handleClick(i);});
 }
-/// clear button ///
-const clearButton=document.querySelector('.clear');
-clearButton.addEventListener('click',()=>{document.querySelector('.inputbox').innerHTML='';});
+
+function handleDelete() {
+    const inputbox = document.querySelector('.inputbox');
+    if (inputbox) {
+        inputbox.innerHTML = inputbox.innerHTML.slice(0, -1);
+    }
+}
+
+for (let i = 0; i < 10; i++) {
+    const button = document.getElementById(i);
+    if (button) {
+        button.addEventListener('click', () => handleClick(i));
+    }
+}
+
+let charArray = ['+', '-', '*', '/'];
+for (let i = 0; i < charArray.length; i++) {
+    const button = document.getElementById(charArray[i]);
+    if (button) {
+        button.addEventListener('click', () => handleClick(charArray[i]));
+    }
+}
 /// delete button ///
-const deleteButton=document.querySelector('.delete');
-deleteButton.addEventListener('click',()=>{
-      let output=document.querySelector('.inputbox');
+const deleteButton = document.querySelector('.delete');
+if (deleteButton) {
+    deleteButton.addEventListener('click', handleDelete);
+}
 
-
-});
-///output button////
-let output='ffffff';
-const equalButton=document.querySelector('.equal-button');
-           ////operator /////
 function operator() {
     const inputbox = document.querySelector('.inputbox');
     if (!inputbox) {
         return 'Input box not found';
     }
 
-    const input = inputbox.innerHTML;
+    const input = inputbox.innerHTML.trim();
     let result;
 
     try {
         // Use regex to split the input into numbers and operator
-        const match = input.match(/(\d+)([+\-*/])(\d+)/);
+        const match = input.match(/([+-]?\d+)([+\-*/])([+-]?\d+)/);
         if (!match) {
-            alert('Invalid input');
+            // Handle cases where the input is a single number with an optional sign
+            const singleNumberMatch = input.match(/[+-]?\d+/);
+            if (singleNumberMatch) {
+                return singleNumberMatch[0];
+            }
             return 'Invalid input';
         }
 
@@ -92,9 +99,21 @@ function operator() {
 
     return result;
 }
-equalButton.addEventListener('click',()=>{
-    let outputbox=document.querySelector('.outputbox');
-    output=operator();
-    outputbox.innerHTML=output;
+
+const equalButton = document.querySelector('.equal-button');
+equalButton.addEventListener('click', () => {
+    let outputbox = document.querySelector('.outputbox');
+    let output = operator();
+    if (outputbox) {
+        outputbox.innerHTML = output;
+    }
     return;
-})
+});
+
+/// clear button ///
+const clearButton = document.querySelector('.clear');
+clearButton.addEventListener('click', () => {
+    document.querySelector('.inputbox').innerHTML = '';
+});
+
+
